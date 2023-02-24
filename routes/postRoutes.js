@@ -2,10 +2,10 @@ const express = require('express');
 const postControllers = require('../controllers/postControllers');
 const router = express.Router();
 
-router.route('/logs').get(postControllers.getUserLogs);
+router.route('/logs').post(postControllers.getUserLogs);
 router.route('/all-logs').get(postControllers.getAllLogs);
-router.route('/user').get(postControllers.getUser);
-router.route('/closet').get(postControllers.getUserCloset);
+router.route('/user').post(postControllers.getUser);
+router.route('/closet').post(postControllers.getUserCloset);
 
 
 module.exports = router;
