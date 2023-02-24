@@ -28,3 +28,8 @@ exports.addUserSchedule= async (req,res,next) => {
     let schedule= await Post.addSchedule(userId,closetId,schedules); 
     res.status(200).json({schedule});
 }
+exports.getUserSchedule= async (req,res,next) => {
+    let {userId,closetId} = req.body;
+    let [schedule,_]= await Post.getSchedule(userId,closetId); 
+    res.status(200).json({schedule});
+}

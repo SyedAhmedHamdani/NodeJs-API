@@ -7,6 +7,7 @@ router.route('/all-logs').get(postControllers.getAllLogs);
 router.route('/user').post(postControllers.getUser);
 router.route('/closet').post(postControllers.getUserCloset);
 router.route('/add-schedule').post(postControllers.addUserSchedule);
+router.route('/get-schedule').post(postControllers.getUserSchedule);
 
 
 module.exports = router;

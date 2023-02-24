@@ -12,6 +12,10 @@ class Post {
         console.log(sql);
         return db.execute(sql);
     }
+    static getSchedule(userId,closetId) {
+        let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
+        return db.execute(searchSql);
+    }
     static async addSchedule(userId,closetId,schedules) {
         
         let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
