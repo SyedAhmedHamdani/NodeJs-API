@@ -12,7 +12,22 @@ class Post {
         console.log(sql);
         return db.execute(sql);
     }
-    
+    static async addSchedule(userId,closetId,schedules) {
+        
+        let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
+        let [response,_] = await db.execute(searchSql);
+        if(response.length>0)
+        {
+            let updateSql=`Update schedules set schedule='${schedules}' where user_id='${userId}' && closet_Id='${closetId}'`
+            let [update_response,_] = await db.execute(updateSql);
+            return "Update"
+        }
+        else{
+            let addSql=`Insert into schedules set user_id='${userId}', closet_Id='${closetId}',schedule='${schedules}'`
+            let [add_response,_] = await db.execute(addSql);
+            return "Added"
+        } 
+    }
     static findCloset(userId) {
     let sql=`Select * from poshmark_details where user_id = '${userId}'`
     console.log(sql);

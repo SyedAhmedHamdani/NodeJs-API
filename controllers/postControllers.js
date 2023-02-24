@@ -23,3 +23,8 @@ exports.getUserCloset= async (req,res,next) => {
     let [closet,_] = await Post.findCloset(userId); 
     res.status(200).json({closet});
 }
+exports.addUserSchedule= async (req,res,next) => {
+    let {userId,closetId,schedules} = req.body;
+    let schedule= await Post.addSchedule(userId,closetId,schedules); 
+    res.status(200).json({schedule});
+}
