@@ -8,6 +8,7 @@ router.route('/user').post(postControllers.getUser);
 router.route('/closet').post(postControllers.getUserCloset);
 router.route('/add-schedule').post(postControllers.addUserSchedule);
 router.route('/get-schedule').post(postControllers.getUserSchedule);
+router.route('/add-user').post(postControllers.signupNewUser);
 
 
 module.exports = router;

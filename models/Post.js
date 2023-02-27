@@ -13,8 +13,12 @@ class Post {
         return db.execute(sql);
     }
     static getSchedule(userId,closetId) {
-        let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
+        let searchSql=`Select schedule from schedules where user_id='${userId}' && closet_Id='${closetId}'`
         return db.execute(searchSql);
+    }
+    static addUser(firstName,lastName,phoneNo,email,password) {
+        let addSql=`Insert into Users set First_Name='${firstName}', Last_Name='${lastName}',Phone_No='${phoneNo}',Email='${email}',Password='${password}'`
+        return db.execute(addSql);
     }
     static async addSchedule(userId,closetId,schedules) {
         

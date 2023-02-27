@@ -31,5 +31,10 @@ exports.addUserSchedule= async (req,res,next) => {
 exports.getUserSchedule= async (req,res,next) => {
     let {userId,closetId} = req.body;
     let [schedule,_]= await Post.getSchedule(userId,closetId); 
-    res.status(200).json({schedule});
+    res.status(200).json(schedule);
+}
+exports.signupNewUser= async (req,res,next) => {
+    let {firstName,lastName,phoneNo,email,password} = req.body;
+    let [user,_]= await Post.addUser(firstName,lastName,phoneNo,email,password); 
+    res.status(200).json(user);
 }
