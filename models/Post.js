@@ -72,7 +72,7 @@ class Post {
     async findLogs() {
        var logs='';
        var connection = mysql.createConnection({
-        host: serverDatabase,
+        host: this.serverDatabase,
         user: process.env.DB_NAME,
         database: process.env.DB_NAME_B,
         password:process.env.DB_PASSWORD,
