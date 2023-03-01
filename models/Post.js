@@ -2,9 +2,10 @@ const db = require('../config/db');
 const mysql = require('mysql2');
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 class Post {
-    constructor(userId,closetId) {
+    constructor(userId,closetId,serverDatabase) {
         this.user_Id = userId;
         this.closet_Id = closetId;
+        this.serverDatabase=serverDatabase;
     }
 
     static findUser(email,password) {
@@ -71,7 +72,7 @@ class Post {
     async findLogs() {
        var logs='';
        var connection = mysql.createConnection({
-        host: process.env.DB_HOST,
+        host: serverDatabase,
         user: process.env.DB_NAME,
         database: process.env.DB_NAME_B,
         password:process.env.DB_PASSWORD,
@@ -154,7 +155,7 @@ class Post {
     static async attachPaymentMethod(paymentMethodId,customerId) {
         
         const paymentMethod = await stripe.paymentMethods.attach(
-            'pm_1MgP0bFiqFjlS2otWiCopXc4',
+            'pm_1MgkQ3FiqFjlS2ot3UVpi6tP',
             {customer: 'cus_NRGtut4DKjMYYZ'}
           );
           
