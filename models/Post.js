@@ -231,6 +231,28 @@ class Post {
       return 'SuccessFul'
            
    }
+
+   static async getCurrentActivity(userId,closetId,serverDatabase) {
+    var Activity='';
+    var connection = mysql.createConnection({
+      host: serverDatabase,
+      user: process.env.DB_NAME,
+      database: process.env.DB_NAME_B,
+      password:process.env.DB_PASSWORD,
+    });
+    
+    connection.connect();
+    let searchSql=`Select  detail from current_activity where main_server_user_id='${userId}' && main_server_closet_id='${closetId}'`
+    let data = await connection.promise().query(searchSql)
+    .then( ([rows,fields]) => {Activity=rows})
+    .catch(console.log)
+    .then( () =>
+    {
+        connection.end();
+        return Activity
+    });
+    return data
+}
     
 }
 module.exports = Post;

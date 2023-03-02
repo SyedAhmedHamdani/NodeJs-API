@@ -81,3 +81,8 @@ exports.updateLinkCloset= async (req,res,next) => {
     let closet= await Post.updateLinkCloset(closetName,password,country,userId,serverDatabase); 
     res.status(200).json(closet);
 }
+exports.getCurrentActivity= async (req,res,next) => {
+    let {userId,closetId,serverDatabase} = req.body;
+    let Activity= await Post.getCurrentActivity(userId,closetId,serverDatabase); 
+    res.status(200).json(Activity);
+}
