@@ -207,7 +207,7 @@ class Post {
        let addServerDb=`Insert into closet_app_info set user_id_main_server='${userId}',closet_id_main_server='${result.insertId}', closet_name='${closetName}',password='${password}',country='${country}',proxy='${RandomProxy}',update_status='${1}'`
        let data = await connection.promise().query(addServerDb);
 
-        return RandomServerDatabase
+        return [{RandomServerDatabase:RandomServerDatabase,closet_id:result.insertId}]
              
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
