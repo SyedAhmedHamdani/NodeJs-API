@@ -2,6 +2,7 @@ const Post = require('../models/Post');
 
 
 exports.getAllLogs= async (req,res,next) => {
+    console.log("Getting All Logs")
     let post = new Post();
     post = await post.findAllLogs(); 
     res.status(200).json({post})
