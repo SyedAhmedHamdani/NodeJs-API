@@ -17,6 +17,6 @@ router.route('/get-all-product').post(postControllers.getStripeProduct);
 router.route('/get-all-subscription').post(postControllers.getStripeSubscription);
 router.route('/cancel-subscription').post(postControllers.cancelStripeSubscription);
 router.route('/link-closet').post(postControllers.linkCloset);
-
+router.route('/update-link-closet').post(postControllers.updateLinkCloset);
 
 module.exports = router;

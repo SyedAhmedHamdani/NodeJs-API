@@ -210,6 +210,27 @@ class Post {
         return 'SuccessFul'
              
      }
+     static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
+
+      
+
+      let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id='${userId}'`
+       const [result,_]= await db.execute(addAppDb);
+ 
+      var connection = mysql.createConnection({
+       host: serverDatabase,
+       user: process.env.DB_NAME,
+       database: process.env.DB_NAME_B,
+       password:process.env.DB_PASSWORD,
+     });
+     
+     connection.connect();
+     let addServerDb=`Update closet_app_info set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id_main_server='${userId}'`
+     let data = await connection.promise().query(addServerDb);
+
+      return 'SuccessFul'
+           
+   }
     
 }
 module.exports = Post;

@@ -76,3 +76,8 @@ exports.linkCloset= async (req,res,next) => {
     let closet= await Post.linkCloset(closetName,password,country,userId); 
     res.status(200).json(closet);
 }
+exports.updateLinkCloset= async (req,res,next) => {
+    let {closetName,password,country,userId,serverDatabase} = req.body;
+    let closet= await Post.updateLinkCloset(closetName,password,country,userId,serverDatabase); 
+    res.status(200).json(closet);
+}
