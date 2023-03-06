@@ -225,7 +225,7 @@ class Post {
          
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
-      let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id='${userId}'`
+      let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}',cookie='${''}' where user_id='${userId}'`
        const [result,_]= await db.execute(addAppDb);
  
       var connection = mysql.createConnection({
