@@ -80,7 +80,7 @@ class Post {
       });
       
       connection.connect();
-      let sql=`Select * from '${this.filter}' where user_id='${this.user_Id}' && closet_id='${this.closet_Id}' order by log_time desc limit 100`;
+      let sql=`Select * from ${this.filter} where user_id='${this.user_Id}' && closet_id='${this.closet_Id}' order by log_time desc limit 100`;
      let data = await connection.promise().query(sql)
             .then( ([rows,fields]) => {logs=rows})
             .catch(console.log)
