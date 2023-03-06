@@ -211,9 +211,6 @@ class Post {
              
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
-
-      
-
       let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id='${userId}'`
        const [result,_]= await db.execute(addAppDb);
  
@@ -252,7 +249,29 @@ class Post {
         return Activity
     });
     return data
-}
+    }
+
+    static async getStatsCount(userId,closetId,serverDatabase) {
+      var Stats='';
+      var connection = mysql.createConnection({
+        host: serverDatabase,
+        user: process.env.DB_NAME,
+        database: process.env.DB_NAME_B,
+        password:process.env.DB_PASSWORD,
+      });
+      
+      connection.connect();
+      let searchSql=`Select  * from stats_count where main_server_user_id='${userId}' && main_server_closet_id='${closetId}'`
+      let data = await connection.promise().query(searchSql)
+      .then( ([rows,fields]) => {Stats=rows})
+      .catch(console.log)
+      .then( () =>
+      {
+          connection.end();
+          return Stats
+      });
+      return data
+      }
     
 }
 module.exports = Post;

@@ -87,3 +87,8 @@ exports.getCurrentActivity= async (req,res,next) => {
     let Activity= await Post.getCurrentActivity(userId,closetId,serverDatabase); 
     res.status(200).json(Activity);
 }
+exports.getStatsCount= async (req,res,next) => {
+    let {userId,closetId,serverDatabase} = req.body;
+    let Stats= await Post.getStatsCount(userId,closetId,serverDatabase); 
+    res.status(200).json(Stats);
+}
