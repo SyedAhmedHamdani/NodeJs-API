@@ -225,21 +225,31 @@ class Post {
          
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
-      let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}',cookie='${''}' where user_id='${userId}'`
-       const [result,_]= await db.execute(addAppDb);
- 
-      var connection = mysql.createConnection({
-       host: serverDatabase,
-       user: process.env.DB_NAME,
-       database: process.env.DB_NAME_B,
-       password:process.env.DB_PASSWORD,
-     });
-     
-     connection.connect();
-     let addServerDb=`Update closet_app_info set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id_main_server='${userId}'`
-     let data = await connection.promise().query(addServerDb);
-
-      return 'SuccessFul'
+      const search_closet=`Select * from trial_account where account_name = '${closetName}'`
+        const [search,sa]= await db.execute(search_closet);
+        if(search.length === 0)
+        {
+          let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}',cookie='${''}' where user_id='${userId}'`
+          const [result,_]= await db.execute(addAppDb);
+    
+         var connection = mysql.createConnection({
+          host: serverDatabase,
+          user: process.env.DB_NAME,
+          database: process.env.DB_NAME_B,
+          password:process.env.DB_PASSWORD,
+        });
+        
+        connection.connect();
+        let addServerDb=`Update closet_app_info set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id_main_server='${userId}'`
+        let data = await connection.promise().query(addServerDb);
+   
+         return 'SuccessFul'
+        }
+        else
+        {
+          return[{error:"Error"}]
+        }
+      
            
    }
 
