@@ -9,8 +9,8 @@ exports.getAllLogs= async (req,res,next) => {
 }
 
 exports.getUserLogs= async (req,res,next) => {
-    let {userId,closetId,serverDatabase} = req.body;
-    let post = new Post(userId,closetId,serverDatabase);
+    let {userId,closetId,serverDatabase,flag} = req.body;
+    let post = new Post(userId,closetId,serverDatabase,flag);
     post = await post.findLogs(); 
     res.status(200).json({post})
 }
