@@ -184,31 +184,44 @@ class Post {
 
     static async linkCloset(closetName,password,country,userId) {
 
-        const getProxyQuery=`SELECT proxies.proxy_ip, COUNT(poshmark_details.proxy) FROM proxies LEFT JOIN poshmark_details ON proxies.proxy_ip = poshmark_details.proxy GROUP BY proxies.proxy_ip ORDER By COUNT(poshmark_details.proxy) ASC`;
-        const [proxies,p]= await db.execute(getProxyQuery);
-        const getServerQuery=`SELECT servers.server_ip,servers.db_ip, COUNT(poshmark_details.server_ip) FROM servers LEFT JOIN poshmark_details ON servers.server_ip = poshmark_details.server_ip GROUP BY servers.server_ip ORDER By COUNT(poshmark_details.server_ip) ASC`
-        const [servers,s]= await db.execute(getServerQuery); 
+        const search_closet=`Select * from trial_account where account_name = '${closetName}'`
+        const [search,sa]= await db.execute(search_closet);
+        if(search.length === 0)
+        {
 
-        let RandomServer=servers[Math.floor(Math.random()*servers.length)].server_ip;
-        let RandomProxy=proxies[Math.floor(Math.random()*proxies.length)].proxy_ip;
-        let RandomServerDatabase=servers[Math.floor(Math.random()*servers.length)].db_ip;
+          const insert_closet=`Insert into trail_account set account_name = '${closetName}'`;
+          const response = await db.execute(search_closet);
 
-        let addAppDb=`Insert into poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',user_id='${userId}',proxy='${RandomProxy}',server_ip='${RandomServer}',db_ip='${RandomServerDatabase}',update_status='${1}'`
-         const [result,_]= await db.execute(addAppDb);
-   
-        var connection = mysql.createConnection({
-         host: RandomServerDatabase,
-         user: process.env.DB_NAME,
-         database: process.env.DB_NAME_B,
-         password:process.env.DB_PASSWORD,
-       });
-       
-       connection.connect();
-       let addServerDb=`Insert into closet_app_info set user_id_main_server='${userId}',closet_id_main_server='${result.insertId}', closet_name='${closetName}',password='${password}',country='${country}',proxy='${RandomProxy}',update_status='${1}'`
-       let data = await connection.promise().query(addServerDb);
-
-        return [{RandomServerDatabase:RandomServerDatabase,closet_id:result.insertId}]
-             
+          const getProxyQuery=`SELECT proxies.proxy_ip, COUNT(poshmark_details.proxy) FROM proxies LEFT JOIN poshmark_details ON proxies.proxy_ip = poshmark_details.proxy GROUP BY proxies.proxy_ip ORDER By COUNT(poshmark_details.proxy) ASC`;
+          const [proxies,p]= await db.execute(getProxyQuery);
+          const getServerQuery=`SELECT servers.server_ip,servers.db_ip, COUNT(poshmark_details.server_ip) FROM servers LEFT JOIN poshmark_details ON servers.server_ip = poshmark_details.server_ip GROUP BY servers.server_ip ORDER By COUNT(poshmark_details.server_ip) ASC`
+          const [servers,s]= await db.execute(getServerQuery); 
+  
+          let RandomServer=servers[Math.floor(Math.random()*servers.length)].server_ip;
+          let RandomProxy=proxies[Math.floor(Math.random()*proxies.length)].proxy_ip;
+          let RandomServerDatabase=servers[Math.floor(Math.random()*servers.length)].db_ip;
+  
+          let addAppDb=`Insert into poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',user_id='${userId}',proxy='${RandomProxy}',server_ip='${RandomServer}',db_ip='${RandomServerDatabase}',update_status='${1}'`
+           const [result,_]= await db.execute(addAppDb);
+     
+          var connection = mysql.createConnection({
+           host: RandomServerDatabase,
+           user: process.env.DB_NAME,
+           database: process.env.DB_NAME_B,
+           password:process.env.DB_PASSWORD,
+         });
+         
+         connection.connect();
+         let addServerDb=`Insert into closet_app_info set user_id_main_server='${userId}',closet_id_main_server='${result.insertId}', closet_name='${closetName}',password='${password}',country='${country}',proxy='${RandomProxy}',update_status='${1}'`
+         let data = await connection.promise().query(addServerDb);
+  
+          return [{RandomServerDatabase:RandomServerDatabase,closet_id:result.insertId}]
+        }
+        else
+        {
+          return[{error:"Error"}]
+        }
+         
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
       let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id='${userId}'`
