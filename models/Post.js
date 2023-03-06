@@ -274,7 +274,7 @@ class Post {
       });
       
       connection.connect();
-      let searchSql=`Select  * from stats_count where main_server_user_id='${userId}' && main_server_closet_id='${closetId}'`
+      let searchSql=`Select  * from stats_counts where main_server_user_id='${userId}' && main_server_closet_id='${closetId}'`
       let data = await connection.promise().query(searchSql)
       .then( ([rows,fields]) => {Stats=rows})
       .catch(console.log)
