@@ -185,7 +185,7 @@ class Post {
 
     static async linkCloset(closetName,password,country,userId) {
 
-        const search_closet=`Select * from trial_account where account_name = '${closetName}'`
+        const search_closet=`Select * from trail_account where account_name = '${closetName}'`
         const [search,sa]= await db.execute(search_closet);
         if(search.length === 0)
         {
