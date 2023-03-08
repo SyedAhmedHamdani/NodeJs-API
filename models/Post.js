@@ -187,11 +187,12 @@ class Post {
 
         const search_closet=`Select * from trail_account where account_name = '${closetName}'`
         const [search,sa]= await db.execute(search_closet);
+        console.log(search);
         if(search.length === 0)
         {
 
           const insert_closet=`Insert into trail_account set account_name = '${closetName}'`;
-          const response = await db.execute(search_closet);
+          const response = await db.execute(insert_closet);
 
           const getProxyQuery=`SELECT proxies.proxy_ip, COUNT(poshmark_details.proxy) FROM proxies LEFT JOIN poshmark_details ON proxies.proxy_ip = poshmark_details.proxy GROUP BY proxies.proxy_ip ORDER By COUNT(poshmark_details.proxy) ASC`;
           const [proxies,p]= await db.execute(getProxyQuery);
