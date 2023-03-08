@@ -225,10 +225,7 @@ class Post {
          
      }
      static async updateLinkCloset(closetName,password,country,userId,serverDatabase) {
-      const search_closet=`Select * from trial_account where account_name = '${closetName}'`
-        const [search,sa]= await db.execute(search_closet);
-        if(search.length === 0)
-        {
+     
           let addAppDb=`Update poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}',cookie='${''}' where user_id='${userId}'`
           const [result,_]= await db.execute(addAppDb);
     
@@ -245,13 +242,8 @@ class Post {
    
          return 'SuccessFul'
         }
-        else
-        {
-          return[{error:"Error"}]
-        }
       
-           
-   }
+   
 
    static async getCurrentActivity(userId,closetId,serverDatabase) {
     var Activity='';
