@@ -28,9 +28,10 @@ class Post {
 
     static async addSchedule(userId,closetId,schedules,serverDatabase) {
         
+      
         let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
         let [response,_] = await db.execute(searchSql);
-
+        console.log(response);
         if(response.length>0)
         {   
            if(schedules !== '')
@@ -48,6 +49,7 @@ class Post {
               connection.connect();
               let updateServerDb=`Update  schedules set schedule='${schedules}',update_status='${1}' where user_id='${userId}' && closet_Id='${closetId}'`
               let data = await connection.promise().query(updateServerDb);
+              connection.end();
        
             return "Update"
            }
@@ -65,6 +67,7 @@ class Post {
             connection.connect();
             let removeDb=`Delete from schedules where user_id='${userId}' && closet_Id='${closetId}'`
             let data = await connection.promise().query(removeDb);
+            connection.end();
             return "Update"
            }
             
@@ -82,7 +85,7 @@ class Post {
               connection.connect();
               let addServerDb=`Insert into schedules set user_id='${userId}', closet_Id='${closetId}',schedule='${schedules}',update_status='${1}'`
               let data = await connection.promise().query(addServerDb);
-       
+              connection.end();
             return "Added"
         } 
     }
@@ -237,7 +240,7 @@ class Post {
          connection.connect();
          let addServerDb=`Insert into closet_app_info set user_id_main_server='${userId}',closet_id_main_server='${result.insertId}', closet_name='${closetName}',password='${password}',country='${country}',proxy='${RandomProxy}',update_status='${1}'`
          let data = await connection.promise().query(addServerDb);
-  
+         connection.end();
           return [{RandomServerDatabase:RandomServerDatabase,closet_id:result.insertId}]
         }
         else
@@ -261,7 +264,7 @@ class Post {
         connection.connect();
         let addServerDb=`Update closet_app_info set closet_name='${closetName}',password='${password}',country='${country}',update_status='${1}' where user_id_main_server='${userId}'`
         let data = await connection.promise().query(addServerDb);
-   
+        connection.end();
          return 'SuccessFul'
         }
       
