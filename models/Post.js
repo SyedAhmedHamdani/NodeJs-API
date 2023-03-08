@@ -30,8 +30,11 @@ class Post {
         
         let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
         let [response,_] = await db.execute(searchSql);
+
         if(response.length>0)
-        {
+        {   
+           if(schedules !== '')
+           {
             let updateSql=`Update schedules set schedule='${schedules}',update_status='${1}' where user_id='${userId}' && closet_Id='${closetId}'`
             let [update_response,_] = await db.execute(updateSql);
 
@@ -47,6 +50,24 @@ class Post {
               let data = await connection.promise().query(updateServerDb);
        
             return "Update"
+           }
+           if(schedules === '')
+           {
+             let removeQuery=`Delete from schedules where user_id='${userId}' && closet_Id='${closetId}'`;
+             let [update_response,_] = await db.execute(removeQuery);
+             var connection = mysql.createConnection({
+              host: serverDatabase,
+              user: process.env.DB_NAME,
+              database: process.env.DB_NAME_B,
+              password:process.env.DB_PASSWORD,
+            });
+            
+            connection.connect();
+            let removeDb=`Delete from schedules where user_id='${userId}' && closet_Id='${closetId}'`
+            let data = await connection.promise().query(removeDb);
+            return "Update"
+           }
+            
         }
         else{
             let addSql=`Insert into schedules set user_id='${userId}', closet_Id='${closetId}',schedule='${schedules}',update_status='${1}'`
