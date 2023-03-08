@@ -20,8 +20,8 @@ class Post {
     }
     static async addUser(firstName,lastName,phoneNo,email,password) {
 
-        const customer = await stripe.customers.create({ email: email, name: firstName });
-        let addSql=`Insert into Users set First_Name='${firstName}', Last_Name='${lastName}',Phone_No='${phoneNo}',Email='${email}',Password='${password}',stripe_customer_id='${customer.id}'`
+        // const customer = await stripe.customers.create({ email: email, name: firstName });
+        let addSql=`Insert into Users set First_Name='${firstName}', Last_Name='${lastName}',Phone_No='${phoneNo}',Email='${email}',Password='${password}',stripe_customer_id='${""}'`
         return db.execute(addSql);
     }
     
