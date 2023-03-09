@@ -93,6 +93,6 @@ exports.getStatsCount= async (req,res,next) => {
     res.status(200).json({Stats:Stats});
 }
 exports.getPaymentStatus= async (req,res,next) => {
-    let Status= await Post.checkingPaymentStats(); 
+    let [Status,_]= await Post.checkingPaymentStats(); 
     res.status(200).json({Stats:Status});
 }
