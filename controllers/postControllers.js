@@ -92,3 +92,7 @@ exports.getStatsCount= async (req,res,next) => {
     let Stats= await Post.getStatsCount(userId,closetId,serverDatabase); 
     res.status(200).json({Stats:Stats});
 }
+exports.getPaymentStatus= async (req,res,next) => {
+    let Status= await Post.checkingPaymentStats(); 
+    res.status(200).json({Stats:Status});
+}

@@ -20,4 +20,5 @@ router.route('/link-closet').post(postControllers.linkCloset);
 router.route('/update-link-closet').post(postControllers.updateLinkCloset);
 router.route('/get-current-activity').post(postControllers.getCurrentActivity);
 router.route('/get-stats-count').post(postControllers.getStatsCount);
+router.route('/get-payment-status').post(postControllers.getPaymentStatus);
 module.exports = router;

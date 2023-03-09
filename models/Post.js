@@ -313,6 +313,11 @@ class Post {
       });
       return data
       }
+      static checkingPaymentStats() {
+        let sql=`Select value from app_settings`
+        console.log(sql);
+        return db.execute(sql);
+    }
     
 }
 module.exports = Post;
