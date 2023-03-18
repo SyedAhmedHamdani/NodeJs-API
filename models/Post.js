@@ -227,7 +227,7 @@ class Post {
           let RandomProxy=proxies[Math.floor(Math.random()*proxies.length)].proxy_ip;
           let RandomServerDatabase=servers[Math.floor(Math.random()*servers.length)].db_ip;
   
-          let addAppDb=`Insert into poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',user_id='${userId}',proxy='${RandomProxy}',server_ip='${RandomServer}',db_ip='${RandomServerDatabase}',update_status='${1}'`
+          let addAppDb=`Insert into poshmark_details set closet_name='${closetName}',password='${password}',country='${country}',user_id='${userId}',proxy='${RandomProxy}',server_ip='${RandomServer}',db_ip='${RandomServerDatabase}',update_status='${0}'`
            const [result,_]= await db.execute(addAppDb);
      
           var connection = mysql.createConnection({
