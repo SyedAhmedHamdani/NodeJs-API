@@ -96,3 +96,8 @@ exports.getPaymentStatus= async (req,res,next) => {
     let [Status,_]= await Post.checkingPaymentStats(); 
     res.status(200).json({Stats:Status});
 }
+exports.getCompetitionItem= async (req,res,next) => {
+    let {userId,closetId,serverDatabase} = req.body;
+    let Item= await Post.getCompetitionItem(userId,closetId,serverDatabase); 
+    res.status(200).json({Items:Item});
+}

@@ -270,7 +270,7 @@ class Post {
       
    
 
-   static async getCurrentActivity(userId,closetId,serverDatabase) {
+    static async getCurrentActivity(userId,closetId,serverDatabase) {
     var Activity='';
     var connection = mysql.createConnection({
       host: serverDatabase,
@@ -318,6 +318,27 @@ class Post {
         console.log(sql);
         return db.execute(sql);
     }
+    static async getCompetitionItem(userId,closetId,serverDatabase) {
+      var Item='';
+      var connection = mysql.createConnection({
+        host: serverDatabase,
+        user: process.env.DB_NAME,
+        database: process.env.DB_NAME_B,
+        password:process.env.DB_PASSWORD,
+      });
+      
+      connection.connect();
+      let searchSql=`Select  data,log_time from item_competition where user_id_main_server='${userId}' && closet_id_main_server='${closetId}'`
+      let data = await connection.promise().query(searchSql)
+      .then( ([rows,fields]) => {Item=rows})
+      .catch(console.log)
+      .then( () =>
+      {
+          connection.end();
+          return Item
+      });
+      return data
+      }
     
 }
 module.exports = Post;

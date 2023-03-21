@@ -21,4 +21,5 @@ router.route('/update-link-closet').post(postControllers.updateLinkCloset);
 router.route('/get-current-activity').post(postControllers.getCurrentActivity);
 router.route('/get-stats-count').post(postControllers.getStatsCount);
 router.route('/get-payment-status').post(postControllers.getPaymentStatus);
+router.route('/get-competition-item').post(postControllers.getCompetitionItem);
 module.exports = router;
