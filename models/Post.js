@@ -328,7 +328,7 @@ class Post {
       });
       
       connection.connect();
-      let searchSql=`Select  data,log_time from item_competition where user_id_main_server='${userId}' && closet_id_main_server='${closetId}'`
+      let searchSql=`Select  data,log_time from item_competition where user_id_main_server='${userId}' && closet_id_main_server='${closetId}' order by log_time desc limit 1`
       let data = await connection.promise().query(searchSql)
       .then( ([rows,fields]) => {Item=rows})
       .catch(console.log)

@@ -99,5 +99,37 @@ exports.getPaymentStatus= async (req,res,next) => {
 exports.getCompetitionItem= async (req,res,next) => {
     let {userId,closetId,serverDatabase} = req.body;
     let Item= await Post.getCompetitionItem(userId,closetId,serverDatabase); 
+    // let data=[];
+    // Item[0].data.split('[').forEach(element => {
+    //       element.split(']').forEach(ele=>{
+    //         if(ele!=='')
+    //         {
+    //             ele=ele.replaceAll("{",'')
+    //             ele=ele.replaceAll("}",'')
+    //             data.push(ele)
+    //         }      
+    //       })    
+    // });
+    // let array=[];
+    // data.forEach((ele)=>{
+    //     if(ele.split(",")!='')
+    //     {
+    //         array.push(ele.split(","))
+    //     }
+       
+    // })
+    // let obj=[];
+    // let temp=[];
+    // array.forEach((element)=>{
+    //         obj=[]
+    //         for (let index = 0; index < element.length; index=index+5) {
+    //             if(element[index] !=='')
+    //             obj.push({id:element[index],price:element[index+1],title:element[index+2],image:element[index+3],condition:element[index+4]})
+    //         }
+    //         temp.push(obj)
+    // })
+     
+    // console.log(temp[0]);
+    
     res.status(200).json({Items:Item});
 }
