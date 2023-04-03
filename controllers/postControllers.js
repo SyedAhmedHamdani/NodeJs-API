@@ -99,7 +99,6 @@ exports.getPaymentStatus= async (req,res,next) => {
 exports.getCompetitionItem= async (req,res,next) => {
     let {userId,closetId,serverDatabase} = req.body;
     let Item= await Post.getCompetitionItem(userId,closetId,serverDatabase); 
-    console.log("Check");
     // let data=[];
     // Item[0].data.split('[').forEach(element => {
     //       element.split(']').forEach(ele=>{

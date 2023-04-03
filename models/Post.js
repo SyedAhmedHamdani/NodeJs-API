@@ -31,7 +31,7 @@ class Post {
       
         let searchSql=`Select * from schedules where user_id='${userId}' && closet_Id='${closetId}'`
         let [response,_] = await db.execute(searchSql);
-        console.log(response);
+        
         if(response.length>0)
         {   
            if(schedules !== '')
@@ -91,7 +91,7 @@ class Post {
     }
     static findCloset(userId) {
     let sql=`Select * from poshmark_details where user_id = '${userId}'`
-    console.log(sql);
+    
     return db.execute(sql);
     }
     async findLogs() {
@@ -211,7 +211,7 @@ class Post {
 
         const search_closet=`Select * from trail_account where account_name = '${closetName}'`
         const [search,sa]= await db.execute(search_closet);
-        console.log(search);
+       
         if(search.length === 0)
         {
 
@@ -315,7 +315,7 @@ class Post {
       }
       static checkingPaymentStats() {
         let sql=`Select value from app_settings`
-        console.log(sql);
+       
         return db.execute(sql);
     }
     static async getCompetitionItem(userId,closetId,serverDatabase) {
